@@ -55,8 +55,16 @@
                         
                         <div class="product-category">{{ product['kategori'] }}</div>
                         <div class="product-image">
-                        <img src="{{ url_for('static', filename='Gambar/' + product['gambar']) }}"alt="{{ product['nama'] }}" >
+                            <!-- 1. Periksa apakah Gambar ada di database dan tidak bernilai None -->
+                            <!-- 2. Gunakan 'Gambar' dengan G kapital sesuai struktur tabel database Anda -->
+                            {% if product['Gambar'] and product['Gambar'] != None %}
+                                <img src="{{ url_for('static', filename='Gambar/' + product['Gambar']) }}" alt="{{ product['nama'] }}">
+                            {% else %}
+                                <!-- Jika kosong/None, tampilkan gambar default dari folder static/Gambar/ -->
+                                <img src="{{ url_for('static', filename='Gambar/no-image.jpg') }}" alt="Tidak ada gambar">
+                            {% endif %}
                         </div>
+
                         <h3 class="product-name">{{ product['nama'] }}</h3>
                         <p class="product-desc">{{ product['deskripsi'][:80] }}{% if product['deskripsi']|length > 80 %}...{% endif %}</p>
                         <div class="product-footer">
