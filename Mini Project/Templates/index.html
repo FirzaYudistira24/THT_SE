@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Produk</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">🛍️ Katalog Produk</h1>
+            <a href="{{ url_for('tambah') }}" class="btn btn-primary">+ Tambah Produk</a>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Search Bar -->
+        <div class="search-section">
+            <form method="GET" action="/">
+                <div class="search-bar">
+                    <input 
+                        type="text" 
+                        name="search" 
+                        placeholder="Cari produk atau kategori..." 
+                        value="{{ search }}"
+                    >
+                    <button type="submit" class="btn btn-primary">Cari</button>
+                    {% if search %}
+                        <a href="/" class="btn btn-secondary">Reset</a>
+                    {% endif %}
+                </div>
+            </form>
+            {% if search %}
+                <p class="search-info">Hasil pencarian untuk: <strong>"{{ search }}"</strong> — {{ products|length }} produk ditemukan</p>
+            {% endif %}
+        </div>
+
+        <!-- Product Grid -->
+        {% if products %}
+            <div class="product-grid">
+                {% for product in products %}
+                    <div class="product-card">
+                        
+                        <div class="product-category">{{ product['kategori'] }}</div>
+                        <div class="product-image">
+                        <img src="{{ url_for('static', filename='Gambar/' + product['gambar']) }}"alt="{{ product['nama'] }}" >
+                        </div>
+                        <h3 class="product-name">{{ product['nama'] }}</h3>
+                        <p class="product-desc">{{ product['deskripsi'][:80] }}{% if product['deskripsi']|length > 80 %}...{% endif %}</p>
+                        <div class="product-footer">
+                            <span class="product-price">Rp {{ "{:,.0f}".format(product['harga']) }}</span>
+                            <span class="product-stock {% if product['stok'] < 5 %}low-stock{% endif %}">
+                                Stok: {{ product['stok'] }}
+                            </span>
+                        </div>
+                        <div class="product-actions">
+                            <a href="{{ url_for('detail', id=product['id']) }}" class="btn btn-detail">Detail</a>
+                            <a href="{{ url_for('edit', id=product['id']) }}" class="btn btn-edit">Edit</a>
+                            <form method="POST" action="{{ url_for('hapus', id=product['id']) }}" onsubmit="return confirm('Yakin ingin menghapus produk ini?')">
+                                <button type="submit" class="btn btn-delete">Hapus</button>
+                            </form>
+                        </div>
+                        
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <p>😕 Tidak ada produk ditemukan</p>
+                {% if search %}
+                    <a href="/" class="btn btn-secondary">Lihat semua produk</a>
+                {% else %}
+                    <a href="{{ url_for('tambah') }}" class="btn btn-primary">Tambah Produk Pertama</a>
+                {% endif %}
+            </div>
+        {% endif %}
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Katalog Produk — Dibuat oleh Firza Yudistira</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if action == 'tambah' %}Tambah{% else %}Edit{% endif %} Produk — Katalog Produk</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">🛍️ Katalog Produk</h1>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">← Kembali</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="form-card">
+            <h2>{% if action == 'tambah' %}Tambah Produk Baru{% else %}Edit Produk{% endif %}</h2>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST">
+                <div class="form-group">
+                    <label for="nama">Nama Produk *</label>
+                    <input type="text" id="nama" name="nama" 
+                           value="{{ product['nama'] if product else '' }}" 
+                           placeholder="Masukkan nama produk" required>
+                </div>
+                <div class="form-group">
+                    <label for="deskripsi">Deskripsi *</label>
+                    <textarea id="deskripsi" name="deskripsi" 
+                              placeholder="Masukkan deskripsi produk" required>{{ product['deskripsi'] if product else '' }}</textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="harga">Harga (Rp) *</label>
+                        <input type="number" id="harga" name="harga" 
+                               value="{{ product['harga'] if product else '' }}" 
+                               placeholder="0" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="stok">Stok *</label>
+                        <input type="number" id="stok" name="stok" 
+                               value="{{ product['stok'] if product else '' }}" 
+                               placeholder="0" min="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="kategori">Kategori *</label>
+                    <select id="kategori" name="kategori" required>
+                        <option value="">Pilih Kategori</option>
+                        {% for cat in ['Elektronik', 'Aksesoris', 'Storage', 'Komponen', 'Lainnya'] %}
+                            <option value="{{ cat }}" {% if product and product['kategori'] == cat %}selected{% endif %}>
+                                {{ cat }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        {% if action == 'tambah' %}Tambah Produk{% else %}Simpan Perubahan{% endif %}
+                    </button>
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary">Batal</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Katalog Produk — Dibuat oleh Firza Yudistira</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product['nama'] }} — Katalog Produk</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">🛍️ Katalog Produk</h1>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">← Kembali</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="detail-card">
+            <div class="detail-header">
+                <span class="product-category">{{ product['kategori'] }}</span>
+                <h2>{{ product['nama'] }}</h2>
+            </div>
+            <div class="detail-body">
+                <p class="detail-desc">{{ product['deskripsi'] }}</p>
+                <div class="detail-info">
+                    <div class="info-item">
+                        <span class="info-label">Harga</span>
+                        <span class="info-value price">Rp {{ "{:,.0f}".format(product['harga']) }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Stok</span>
+                        <span class="info-value {% if product['stok'] < 5 %}low-stock{% endif %}">
+                            {{ product['stok'] }} unit
+                        </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Kategori</span>
+                        <span class="info-value">{{ product['kategori'] }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Ditambahkan</span>
+                        <span class="info-value">{{ product['created_at'] }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-actions">
+                <a href="{{ url_for('edit', id=product['id']) }}" class="btn btn-edit">Edit Produk</a>
+                <form method="POST" action="{{ url_for('hapus', id=product['id']) }}" onsubmit="return confirm('Yakin ingin menghapus produk ini?')">
+                    <button type="submit" class="btn btn-delete">Hapus Produk</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Katalog Produk — Dibuat oleh Firza Yudistira</p>
+        </div>
+    </footer>
+
+</body>
+</html>
