@@ -28,7 +28,8 @@
                 {% endif %}
             {% endwith %}
 
-            <form method="POST">
+            <!-- WAJIB: Ditambahkan enctype="multipart/form-data" agar form bisa mengirimkan file gambar -->
+            <form method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="nama">Nama Produk *</label>
                     <input type="text" id="nama" name="nama" 
@@ -65,6 +66,17 @@
                         {% endfor %}
                     </select>
                 </div>
+
+                <!-- TAMBAHAN BARU: Input untuk Unggah Foto Produk -->
+                <div class="form-group">
+                    <label for="gambar">Foto Produk</label>
+                    <!-- accept="image/*" membatasi agar pengguna hanya bisa memilih file gambar -->
+                    <input type="file" id="gambar" name="gambar" accept="image/*">
+                    <small style="color: #636e72; display: block; margin-top: 4px;">
+                        *Kosongkan jika ingin menggunakan foto default.
+                    </small>
+                </div>
+
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">
                         {% if action == 'tambah' %}Tambah Produk{% else %}Simpan Perubahan{% endif %}
