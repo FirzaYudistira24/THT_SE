@@ -2,12 +2,20 @@ import os # Tambahkan di paling atas file untuk mengelola folder
 from werkzeug.utils import secure_filename # Tambahkan untuk mengamankan nama file
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from database import get_db, init_db
+from dotenv import load_dotenv 
+
+load_dotenv() 
 
 app = Flask(__name__)
-app.secret_key = 'braincorp-katalog-produk'
+app.secret_key = os.getenv('FLASK_SECRET_KEY', 'kunci-cadangan-jika-env-tidak-terbaca')
 
 UPLOAD_FOLDER = os.path.join(app.root_path, 'static', 'Gambar')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # Inisialisasi database saat aplikasi pertama dijalankan
 with app.app_context():
@@ -73,16 +81,21 @@ def tambah():
                 flash(error, 'error')
             return render_template('form.html', action='tambah', product=None)
 
-        # 1. Ambil file gambar dari form HTML (Gunakan huruf kecil sesuai name="gambar" di HTML)
+        # Ambil file gambar dari form HTML (Gunakan huruf kecil sesuai name="gambar" di HTML)
         file_gambar = request.files.get('gambar')
         nama_file_gambar = 'no-image.jpg' # Foto default jika kosong
         
         if file_gambar and file_gambar.filename != '':
-            nama_file_gambar = secure_filename(file_gambar.filename)
-            jalur_simpan = os.path.join(app.config['UPLOAD_FOLDER'], nama_file_gambar)
-            file_gambar.save(jalur_simpan)
-        
-        # 2. PERBAIKAN: Masukkan kolom 'Gambar' dan variabel 'nama_file_gambar' ke dalam SQL
+            # Validasi tipe file di sisi server backend
+            if allowed_file(file_gambar.filename):
+                nama_file_gambar = secure_filename(file_gambar.filename)
+                jalur_simpan = os.path.join(app.config['UPLOAD_FOLDER'], nama_file_gambar)
+                file_gambar.save(jalur_simpan)
+            else:
+                flash('Format file tidak diizinkan! Gunakan format png, jpg, jpeg, gif, atau webp.', 'error')
+                return render_template('form.html', action='tambah', product=None)
+            
+        # Masukkan kolom 'Gambar' dan variabel 'nama_file_gambar' ke dalam SQL
         conn = get_db()
         cursor = conn.cursor()
         cursor.execute('''
@@ -130,17 +143,21 @@ def edit(id):
                 flash(error, 'error')
             return render_template('form.html', action='edit', product=product)
         
-        # 1. TAMBAHAN EDIT GAMBAR: Ambil foto lama sebagai cadangan awal
+        # Ambil foto lama sebagai cadangan awal
         nama_file_gambar = product['Gambar']
         
-        # 2. Periksa apakah pengguna mengunggah file foto baru
+        # Periksa apakah pengguna mengunggah file foto baru
         file_gambar = request.files.get('gambar')
         if file_gambar and file_gambar.filename != '':
-            nama_file_gambar = secure_filename(file_gambar.filename)
-            jalur_simpan = os.path.join(app.config['UPLOAD_FOLDER'], nama_file_gambar)
-            file_gambar.save(jalur_simpan)
-        
-        # 3. PERBAIKAN: Update kolom 'Gambar' di dalam SQL
+            if allowed_file(file_gambar.filename):
+                nama_file_gambar = secure_filename(file_gambar.filename)
+                jalur_simpan = os.path.join(app.config['UPLOAD_FOLDER'], nama_file_gambar)
+                file_gambar.save(jalur_simpan)
+            else:
+                flash('Format file tidak diizinkan! Gunakan format png, jpg, jpeg, gif, atau webp.', 'error')
+                return render_template('form.html', action='edit', product=product)
+            
+        # Update kolom 'Gambar' di dalam SQL
         cursor.execute('''
             UPDATE products 
             SET nama=?, deskripsi=?, harga=?, stok=?, kategori=?, Gambar=?
