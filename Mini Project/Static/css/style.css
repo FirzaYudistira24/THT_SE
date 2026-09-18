@@ -1,13 +1,67 @@
-/* ==================== RESET & BASE ==================== */
+/* ============================================================
+   DAFTAR SECTION:
+   1.  VARIABEL & RESET
+   2.  BASE (html, body, .container)
+   3.  NAVBAR          → index.html, detail.html, form.html
+   4.  HERO SECTION    → index.html
+   5.  TOMBOL (BUTTONS)→ index.html, detail.html, form.html
+   6.  BACK TO TOP     → index.html
+   7.  ALERT           → index.html, form.html
+   8.  SEARCH BAR      → index.html
+   9.  PRODUCT GRID    → index.html
+   10. PRODUCT CARD    → index.html
+   11. EMPTY STATE     → index.html
+   12. DETAIL PRODUK   → detail.html
+   13. FORM            → form.html
+   14. FOOTER          → index.html, detail.html, form.html
+   15. ANIMASI         → index.html (hero)
+   16. RESPONSIVE      → semua halaman
+   ============================================================ */
+
+
+/* ============================================================
+   1. VARIABEL & RESET
+   ============================================================ */
+:root {
+    --gradient-primary: linear-gradient(30deg, #0400ff, #4ce3f7);
+    --gradient-navbar:  linear-gradient(to right, #000428, #004e92);
+    --color-success:    #2ecc71;
+    --color-success-dark: #27ae60;
+    --color-warning:    #f39c12;
+    --color-warning-dark: #e67e22;
+    --color-danger:     #e74c3c;
+    --color-danger-dark: #c0392b;
+    --color-dark:       #2c3e50;
+    --color-grey:       #636e72;
+    --color-light-grey: #dfe6e9;
+    --color-bg:         #434343;
+    --color-footer:     #000428;
+    --radius-sm:        6px;
+    --radius-md:        10px;
+    --radius-pill:      20px;
+    --shadow-card:      0 2px 8px rgba(0,0,0,0.08);
+    --shadow-card-hover: 0 8px 20px rgba(0,0,0,0.12);
+    --transition-fast:  0.2s ease;
+    --transition-mid:   0.3s ease;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+
+/* ============================================================
+   2. BASE
+   ============================================================ */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f6fa;
+    background-color: var(--color-bg);
     color: #333;
     min-height: 100vh;
     display: flex;
@@ -18,11 +72,21 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    width: 100%;
 }
 
-/* ==================== NAVBAR ==================== */
+main {
+    flex: 1;
+    padding: 32px 20px;
+}
+
+
+/* ============================================================
+   3. NAVBAR
+   Dipakai di: index.html, detail.html, form.html
+   ============================================================ */
 .navbar {
-    background: linear-gradient(to right, #2980b9, #2c3e50);
+    background: var(--gradient-navbar);
     padding: 16px 0;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     position: sticky;
@@ -40,81 +104,277 @@ body {
     color: white;
     font-size: 1.4rem;
     font-weight: 700;
+    margin: 0;
+    line-height: 1;
 }
 
-/* ==================== BUTTONS ==================== */
+.logo em {
+    font-style: italic;
+}
+
+.logo-pe {
+    color: #ffffff; /* biru muda */
+}
+
+.logo-cell {
+    color: #fefeff;
+}
+
+
+/* ============================================================
+   4. HERO SECTION
+   Dipakai di: index.html
+   ============================================================ */
+.hero-section {
+    background: linear-gradient(rgba(0, 78, 146, 0.7), rgba(0, 4, 40, 0.2)),
+                url('../Gambar/hero-bg.jpg') center / cover no-repeat;
+    color: white;
+    padding: 80px 40px;
+    border-radius: var(--radius-md);
+    text-align: center;
+    margin: 20px 0 40px;
+    box-shadow: 0 4px 15px  rgba(0, 78, 146, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    min-width: 0;        /* TAMBAHKAN INI */
+    align-self: stretch;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-content h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+    animation: fadeInDown 0.8s ease;
+}
+
+.hero-content p {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: #f1f2f6;
+    margin-bottom: 28px;
+    font-weight: 400;
+}
+
+
+/* ============================================================
+   5. TOMBOL (BUTTONS)
+   Dipakai di: index.html, detail.html, form.html
+   ============================================================ */
+
+/* Base tombol — sifat umum semua tombol */
 .btn {
     display: inline-block;
     padding: 8px 16px;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
     border: none;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all var(--transition-fast);
 }
 
+/* Tombol utama — gradient biru (navbar, form, search) */
 .btn-primary {
-    background-color: #3498db;
-    color: white;
+    color: #fff;
+    background-image: var(--gradient-primary);
+    border-radius: var(--radius-pill);
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 17px;
+    padding: 0.5em 1em;
 }
 
 .btn-primary:hover {
-    background-color: #2980b9;
+    background-size: 300% auto;
+    animation: pulse512 1.5s infinite;
 }
 
+/* Tombol hero — sama seperti primary, ukuran lebih besar */
+.btn-hero {
+    color: #fff;
+    background-image: var(--gradient-primary);
+    border-radius: var(--radius-pill);
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 17px;
+    padding: 0.6em 1.5em;
+    border: none;
+}
+
+.btn-hero:hover {
+    background-size: 200% auto;
+    animation: pulse512 1.5s infinite;
+}
+
+/* Tombol search dengan ikon lup */
+.btn-search-icon {
+    background-image: var(--gradient-primary);
+    border-radius: var(--radius-pill);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    min-width: 48px;
+    border-radius: var(--radius-sm);
+    font-size: inherit;
+}
+
+.btn-search-icon:hover {
+    background-size: 300% auto;
+    animation: pulse512 1.5s infinite;
+}
+
+.btn-search-icon svg {
+    display: block;
+    flex-shrink: 0;
+    color: #fff;
+}
+
+/* Tombol sekunder — abu-abu netral (kembali, batal) */
 .btn-secondary {
     background-color: #ecf0f1;
     color: #333;
 }
 
 .btn-secondary:hover {
-    background-color: #dfe6e9;
+    background-color: var(--color-light-grey);
 }
 
+/* Tombol detail — hijau (lihat detail produk) */
 .btn-detail {
-    background-color: #2ecc71;
+    background-color: var(--color-success);
     color: white;
     font-size: 0.8rem;
     padding: 6px 12px;
 }
 
 .btn-detail:hover {
-    background-color: #27ae60;
+    background-color: var(--color-success-dark);
 }
 
+/* Tombol edit — oranye (edit produk) */
 .btn-edit {
-    background-color: #f39c12;
+    background-color: var(--color-warning);
     color: white;
     font-size: 0.8rem;
     padding: 6px 12px;
 }
 
 .btn-edit:hover {
-    background-color: #e67e22;
+    background-color: var(--color-warning-dark);
 }
 
+/* Tombol hapus — merah (hapus produk) */
 .btn-delete {
-    background-color: #e74c3c;
+    background-color: var(--color-danger);
     color: white;
     font-size: 0.8rem;
     padding: 6px 12px;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     font-weight: 600;
     cursor: pointer;
     border: none;
-    transition: all 0.2s ease;
+    transition: all var(--transition-fast);
 }
 
 .btn-delete:hover {
-    background-color: #c0392b;
+    background-color: var(--color-danger-dark);
 }
 
-/* ==================== ALERT ==================== */
+
+/* ============================================================
+   6. BACK TO TOP
+   Dipakai di: index.html
+   Sumber: Uiverse.io by vinodjangid07
+   ============================================================ */
+.button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgb(20, 20, 20);
+    border: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 0px 4px rgba(180, 160, 255, 0.253);
+    cursor: pointer;
+    overflow: hidden;
+    position: fixed;
+    bottom: 100px;
+    right: 50px;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: opacity var(--transition-mid),
+                transform var(--transition-mid),
+                width var(--transition-mid),
+                background-color var(--transition-mid),
+                border-radius var(--transition-mid);
+}
+
+.button.show {
+    opacity: 0.5;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.button.show:hover {
+    opacity: 1;
+    width: 140px;
+    border-radius: 50px;
+    background-image: var(--gradient-primary);
+    align-items: center;
+}
+
+.button::before {
+    position: absolute;
+    bottom: -20px;
+    content: "Kembali ke Atas";
+    color: white;
+    font-size: 0px;
+    transition-duration: 0.3s;
+}
+
+.button.show:hover::before {
+    font-size: 13px;
+    opacity: 1;
+    bottom: unset;
+    transition-duration: 0.3s;
+}
+
+.svgIcon {
+    width: 12px;
+    transition-duration: 0.3s;
+}
+
+.svgIcon path {
+    fill: white;
+}
+
+.button.show:hover .svgIcon {
+    transform: translateY(-200%);
+    transition-duration: 0.3s;
+}
+
+
+/* ============================================================
+   7. ALERT (FLASH MESSAGES)
+   Dipakai di: index.html, form.html
+   ============================================================ */
 .alert {
     padding: 12px 16px;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     margin: 16px 0;
     font-weight: 500;
 }
@@ -122,26 +382,22 @@ body {
 .alert-success {
     background-color: #d5f5e3;
     color: #1e8449;
-    border-left: 4px solid #2ecc71;
+    border-left: 4px solid var(--color-success);
 }
 
 .alert-error {
     background-color: #fadbd8;
     color: #922b21;
-    border-left: 4px solid #e74c3c;
+    border-left: 4px solid var(--color-danger);
 }
 
-/* ==================== MAIN ==================== */
-main {
-    flex: 1;
-    padding: 32px 20px;
-}
 
-/* ==================== SEARCH ==================== */
+/* ============================================================
+   8. SEARCH BAR
+   Dipakai di: index.html
+   ============================================================ */
 .search-section {
-    margin-bottom: 32px;
-    margin-top: 20px;
-
+    margin: 20px 0 32px;
 }
 
 .search-bar {
@@ -153,11 +409,11 @@ main {
 .search-bar input {
     flex: 1;
     padding: 10px 16px;
-    border: 2px solid #0081b8;
-    border-radius: 6px;
+    border: 3px solid rgba(0, 78, 146, 0.8);
+    border-radius: var(--radius-sm);
     font-size: 1rem;
     outline: none;
-    transition: border-color 0.2s;
+    transition: border-color var(--transition-fast);
 }
 
 .search-bar input:focus {
@@ -166,11 +422,55 @@ main {
 
 .search-info {
     margin-top: 10px;
-    color: #636e72;
+    color: var(--color-grey);
     font-size: 0.9rem;
 }
 
-/* ==================== PRODUCT GRID ==================== */
+
+/* ============================================================
+   9. PRODUCT GRID
+   Dipakai di: index.html
+   ============================================================ */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+
+/* ============================================================
+   10. PRODUCT CARD
+   Dipakai di: index.html
+   ============================================================ */
+.product-card {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+}
+
+/* Badge kategori */
+.product-category {
+    display: inline-block;
+    background-image: var(--gradient-primary);
+    color: white;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 600;
+    width: fit-content;
+}
+
+/* Gambar produk */
 .product-image {
     width: 100%;
     height: 200px;
@@ -182,72 +482,29 @@ main {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    transition: transform 0.3s ease;
+    transition: transform var(--transition-mid);
 }
 
 .product-image:hover img {
     transform: scale(1.10);
 }
 
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-}
-
-@media (max-width: 900px) {
-    .product-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 600px) {
-    .product-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-.product-card {
-    background: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: transform 0.2s, box-shadow 0.2s;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.product-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-}
-
-.product-category {
-    display: inline-block;
-    background-color: #c4e5fc;
-    color: #2980b9;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    width: fit-content;
-}
-
+/* Info produk */
 .product-name {
     font-size: 1.05rem;
     font-weight: 700;
-    color: #2c3e50;
+    color: var(--color-dark);
 }
 
 .product-desc {
     font-size: 0.88rem;
-    color: #636e72;
+    color: var(--color-grey);
     line-height: 1.5;
     flex: 1;
     white-space: pre-line;
 }
 
+/* Harga & stok */
 .product-footer {
     display: flex;
     justify-content: space-between;
@@ -259,19 +516,20 @@ main {
 .product-price {
     font-size: 1rem;
     font-weight: 700;
-    color: #2ecc71;
+    color: var(--color-success);
 }
 
 .product-stock {
     font-size: 0.8rem;
-    color: #636e72;
+    color: var(--color-grey);
 }
 
 .low-stock {
-    color: #e74c3c;
+    color: var(--color-danger);
     font-weight: 600;
 }
 
+/* Tombol aksi di card */
 .product-actions {
     display: flex;
     gap: 6px;
@@ -279,11 +537,14 @@ main {
 }
 
 
-/* ==================== EMPTY STATE ==================== */
+/* ============================================================
+   11. EMPTY STATE
+   Dipakai di: index.html (ketika tidak ada produk/hasil pencarian)
+   ============================================================ */
 .empty-state {
     text-align: center;
     padding: 80px 20px;
-    color: #636e72;
+    color: var(--color-grey);
 }
 
 .empty-state p {
@@ -291,14 +552,18 @@ main {
     margin-bottom: 16px;
 }
 
-/* ==================== DETAIL ==================== */
+
+/* ============================================================
+   12. DETAIL PRODUK
+   Dipakai di: detail.html
+   ============================================================ */
 .detail-card {
     background: white;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     padding: 32px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: var(--shadow-card);
     max-width: 700px;
-    margin: 0 auto;
+    margin: 20px auto 0;
 }
 
 .detail-header {
@@ -307,23 +572,82 @@ main {
 
 .detail-header h2 {
     font-size: 1.6rem;
-    color: #2c3e50;
+    color: var(--color-dark);
     margin-top: 8px;
 }
 
 .detail-desc {
-    color: #636e72;
+    color: var(--color-grey);
     line-height: 1.7;
     margin-bottom: 24px;
     font-size: 0.95rem;
     white-space: pre-line;
 }
 
+/* Gambar di halaman detail */
+.detail-image {
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Grid info (harga, stok, kategori, tanggal) */
 .detail-info {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
     margin-bottom: 24px;
+}
+
+/* Tombol edit & hapus di halaman detail */
+.detail-actions {
+    display: flex;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f0;
+}
+
+/* Layout gambar & deskripsi berdampingan */
+.detail-content {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+    align-items: flex-start;
+}
+
+.detail-image {
+    width: 280px;
+    min-width: 280px;
+    height: 280px;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.detail-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.detail-text {
+    flex: 1;
 }
 
 .info-item {
@@ -335,7 +659,7 @@ main {
 .info-label {
     display: block;
     font-size: 0.75rem;
-    color: #636e72;
+    color: var(--color-grey);
     margin-bottom: 4px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -344,34 +668,30 @@ main {
 .info-value {
     font-size: 1rem;
     font-weight: 600;
-    color: #2c3e50;
+    color: var(--color-dark);
 }
 
 .info-value.price {
-    color: #2ecc71;
+    color: var(--color-success);
     font-size: 1.2rem;
 }
 
-.detail-actions {
-    display: flex;
-    gap: 10px;
-    padding-top: 16px;
-    border-top: 1px solid #f0f0f0;
-}
-
-/* ==================== FORM ==================== */
+/* ============================================================
+   13. FORM (TAMBAH & EDIT PRODUK)
+   Dipakai di: form.html
+   ============================================================ */
 .form-card {
     background: white;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     padding: 32px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: var(--shadow-card);
     max-width: 600px;
-    margin: 0 auto;
+    margin: 20px auto 0;
 }
 
 .form-card h2 {
     font-size: 1.4rem;
-    color: #2c3e50;
+    color: var(--color-dark);
     margin-bottom: 24px;
 }
 
@@ -383,7 +703,7 @@ main {
     display: block;
     font-size: 0.9rem;
     font-weight: 600;
-    color: #2c3e50;
+    color: var(--color-dark);
     margin-bottom: 6px;
 }
 
@@ -392,11 +712,11 @@ main {
 .form-group select {
     width: 100%;
     padding: 10px 14px;
-    border: 2px solid #dfe6e9;
-    border-radius: 6px;
+    border: 2px solid var(--color-light-grey);
+    border-radius: var(--radius-sm);
     font-size: 0.95rem;
     outline: none;
-    transition: border-color 0.2s;
+    transition: border-color var(--transition-fast);
     font-family: inherit;
 }
 
@@ -411,32 +731,78 @@ main {
     resize: vertical;
 }
 
+/* Baris dua kolom (harga & stok) */
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
 }
 
+/* Tombol submit & batal */
 .form-actions {
     display: flex;
     gap: 10px;
     margin-top: 8px;
 }
 
-/* ==================== FOOTER ==================== */
+
+/* ============================================================
+   14. FOOTER
+   Dipakai di: index.html, detail.html, form.html
+   ============================================================ */
 footer {
-    background-color: #2c3e50;
+    background-color: var(--color-footer);
     color: #bdc3c7;
     text-align: center;
     padding: 16px 0;
     font-size: 0.85rem;
-    margin-top: auto;
+    margin-top: 20px;
 }
 
-/* ==================== RESPONSIVE ==================== */
-@media (max-width: 768px) {
+
+/* ============================================================
+   15. ANIMASI
+   Dipakai di: index.html (hero section)
+   ============================================================ */
+
+/* Animasi judul hero saat halaman dimuat */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animasi pulse tombol primary & hero saat hover */
+@keyframes pulse512 {
+    0%   { box-shadow: 0 0 0 0 #05bada66; }
+    70%  { box-shadow: 0 0 0 10px rgba(218, 103, 68, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(218, 103, 68, 0); }
+}
+
+
+/* ============================================================
+   16. RESPONSIVE
+   Breakpoint:
+   - max 900px  → product grid 2 kolom
+   - max 768px  → navbar stack, form 1 kolom, detail 1 kolom
+   - max 600px  → product grid 1 kolom
+   ============================================================ */
+@media (max-width: 900px) {
     .product-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar .container {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
     }
 
     .detail-info {
@@ -454,10 +820,10 @@ footer {
     .search-bar input {
         width: 100%;
     }
+}
 
-    .navbar .container {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
+@media (max-width: 600px) {
+    .product-grid {
+        grid-template-columns: 1fr;
     }
 }
