@@ -10,7 +10,8 @@
 
     <nav class="navbar">
         <div class="container">
-            <h1 class="logo">🛍️ Katalog Produk</h1>
+            <h1 class="logo"><span class="logo-pe">PE</span>
+                <em></em><span class="logo-cell">Cell.</span></em></h1>
             <a href="{{ url_for('index') }}" class="btn btn-secondary">← Kembali</a>
         </div>
     </nav>
@@ -69,13 +70,13 @@
 
                 <!-- Input untuk Unggah Foto Produk -->
                 <div class="form-group">
-                    <label for="gambar">Foto Produk</label>
+                    <label for="gambar">Foto Produk**</label>
                     <!-- accept="image/*" membatasi agar pengguna hanya bisa memilih file gambar -->
                     <input type="file" id="gambar" name="gambar" accept="image/*">
                     <small style="color: #636e72; display: block; margin-top: 4px;">
-                        *Masukan file extensi png, jpg, jpeg, gif, dan webp
+                        *Kolom Wajib diisi!
                     <small style="color: #636e72; display: block; margin-top: 4px;"></small>
-                        *Kosongkan jika tidak ada gambar.
+                        **Masukan file extensi png, jpg, jpeg, gif, dan webp
                     </small>
                 </div>
 
