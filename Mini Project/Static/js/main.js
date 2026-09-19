@@ -30,3 +30,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// ======================== Auto Hide Flash Messages ========================
+document.addEventListener('DOMContentLoaded', function() {
+    const alerts = document.querySelectorAll('.alert');
+    
+    alerts.forEach(function(alert) {
+        setTimeout(function() {
+            alert.style.transition = 'opacity 0.5s ease';
+            alert.style.opacity = '0';
+            setTimeout(function() {
+                alert.style.display = 'none';
+            }, 500); // tunggu animasi fade selesai baru hilang
+        }, 5000); // 5000ms = 5 detik
+    });
+});

@@ -422,10 +422,12 @@ main {
     display: flex;
     gap: 8px;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .search-bar input {
     flex: 1;
+    min-width: 150px;
     padding: 10px 16px;
     border: 3px solid rgba(0, 78, 146, 0.8);
     border-radius: var(--radius-sm);
@@ -843,6 +845,16 @@ footer {
 
     .detail-info {
         grid-template-columns: 1fr;
+    }
+
+    .detail-content {
+        flex-direction: column;
+    }
+
+    .detail-image {
+        width: 100%;
+        min-width: unset;
+        height: 220px;
     }
 
     .form-row {
