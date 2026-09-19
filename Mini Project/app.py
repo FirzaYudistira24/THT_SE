@@ -9,7 +9,7 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY', 'kunci-cadangan-jika-env-tidak-terbaca')
 
-UPLOAD_FOLDER = os.path.join(app.root_path, 'static', 'Gambar')
+UPLOAD_FOLDER = os.path.join(app.root_path, 'static', 'gambar')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
@@ -27,18 +27,34 @@ with app.app_context():
 @app.route('/')
 def index():
     search = request.args.get('search', '')
+    kategori_filter = request.args.get('kategori_filter', '')
+    harga_filter = request.args.get('harga_filter', '')
+
     conn = get_db()
     cursor = conn.cursor()
-    
+
+    query = 'SELECT * FROM products WHERE 1=1'
+    params = []
+
+    # Filter pencarian nama/kategori
     if search:
-        cursor.execute('''
-            SELECT * FROM products 
-            WHERE nama LIKE ? OR kategori LIKE ?
-            ORDER BY created_at DESC
-        ''', (f'%{search}%', f'%{search}%'))
-    else:
-        cursor.execute('SELECT * FROM products ORDER BY created_at DESC')
-    
+        query += ' AND (nama LIKE ? OR kategori LIKE ?)'
+        params.extend([f'%{search}%', f'%{search}%'])
+
+    # Filter kategori dropdown
+    if kategori_filter:
+        query += ' AND kategori = ?'
+        params.append(kategori_filter)
+
+    # Filter harga dropdown
+    if harga_filter:
+        harga_min, harga_max = harga_filter.split('-')
+        query += ' AND harga >= ? AND harga <= ?'
+        params.extend([float(harga_min), float(harga_max)])
+
+    query += ' ORDER BY created_at DESC'
+    cursor.execute(query, params)
+
     products = cursor.fetchall()
     conn.close()
     return render_template('index.html', products=products, search=search)
@@ -99,7 +115,7 @@ def tambah():
         conn = get_db()
         cursor = conn.cursor()
         cursor.execute('''
-            INSERT INTO products (nama, deskripsi, harga, stok, kategori, Gambar)
+            INSERT INTO products (nama, deskripsi, harga, stok, kategori, gambar)
             VALUES (?, ?, ?, ?, ?, ?)
         ''', (nama, deskripsi, float(harga), int(stok), kategori, nama_file_gambar))
         conn.commit()
@@ -160,7 +176,7 @@ def edit(id):
         # Update kolom 'Gambar' di dalam SQL
         cursor.execute('''
             UPDATE products 
-            SET nama=?, deskripsi=?, harga=?, stok=?, kategori=?, Gambar=?
+            SET nama=?, deskripsi=?, harga=?, stok=?, kategori=?, gambar=?
             WHERE id=?
         ''', (nama, deskripsi, float(harga), int(stok), kategori, nama_file_gambar, id))
         conn.commit()
