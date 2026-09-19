@@ -15,7 +15,7 @@ Aplikasi ini mendukung operasi CRUD lengkap, fitur pencarian, filter kategori da
 - Edit produk yang sudah ada
 - Hapus produk dengan konfirmasi
 - REST API endpoint untuk akses data produk
-- Tombol Back to Top
+- Tombol kembali ke atas
 - Tampilan responsif untuk mobile dan desktop
 
 ---
@@ -34,6 +34,8 @@ Aplikasi ini mendukung operasi CRUD lengkap, fitur pencarian, filter kategori da
 ---
 
 ## 📁 Struktur Proyek
+
+```
 katalog-produk/
 │
 ├── Algoritma dan Struktur Data/
@@ -61,6 +63,7 @@ katalog-produk/
 │  └── .gitignore 
 └─── README.md
 
+```
 
 ---
 
