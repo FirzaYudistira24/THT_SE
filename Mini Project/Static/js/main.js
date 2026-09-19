@@ -1,4 +1,4 @@
-// ========================Tombol Back To Top ===============================
+// ========================Tombol Kembali Ke Atas ===============================
 document.addEventListener('DOMContentLoaded', function() {
     const tombolBackToTop = document.getElementById('backToTop');
 
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// ======================== Auto Hide Flash Messages ========================
+// ======================== Pesan Flash Otomatis Hilang ========================
 document.addEventListener('DOMContentLoaded', function() {
     const alerts = document.querySelectorAll('.alert');
     
