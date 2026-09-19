@@ -10,8 +10,10 @@
 
     <nav class="navbar">
         <div class="container">
-            <h1 class="logo"><span class="logo-pe">PE</span>
-                <em></em><span class="logo-cell">Cell.</span></em></h1>
+            <a href="{{ url_for('index') }}" class="logo-link">
+                <h1 class="logo"><span class="logo-pe">PE</span>
+                <em><span class="logo-cell">Cell.</span></em></h1>
+            </a>
             <a href="{{ url_for('index') }}" class="btn btn-secondary">← Kembali</a>
         </div>
     </nav>
@@ -30,10 +32,10 @@
                 <!-- Gambar (kiri) & Deskripsi (kanan) berdampingan -->
                 <div class="detail-content">
                     <div class="detail-image">
-                        {% if product['Gambar'] and product['Gambar'] != 'no-image.jpg' %}
-                            <img src="{{ url_for('static', filename='Gambar/' + product['Gambar']) }}" alt="{{ product['nama'] }}">
+                        {% if product['gambar'] and product['gambar'] != 'no-image.jpg' %}
+                            <img src="{{ url_for('static', filename='gambar/' + product['gambar']) }}" alt="{{ product['nama'] }}">
                         {% else %}
-                            <img src="{{ url_for('static', filename='Gambar/no-image.jpg') }}" alt="Tidak ada gambar">
+                            <img src="{{ url_for('static', filename='gambar/no-image.jpg') }}" alt="Tidak ada gambar">
                         {% endif %}
                     </div>
                     <div class="detail-text">
