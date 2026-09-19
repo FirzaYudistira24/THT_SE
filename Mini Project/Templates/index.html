@@ -10,8 +10,10 @@
 
     <nav class="navbar">
         <div class="container">
-            <h1 class="logo"><span class="logo-pe">PE</span>
+            <a href="{{ url_for('index') }}" class="logo-link">
+                <h1 class="logo"><span class="logo-pe">PE</span>
                 <em><span class="logo-cell">Cell.</span></em></h1>
+            </a>
             <a href="{{ url_for('tambah') }}" class="btn btn-primary">+ Tambah Produk</a>
         </div>
     </nav>
@@ -29,7 +31,7 @@
 
         <header class="hero-section">
             <div class="hero-content">
-                <h1>Selamat Datang di Pusat Elektronik Seluler 🛍️</h1>
+                <h1>Selamat Datang di Pusat Elektronik Seluler ⚙️💻🖥️📱💾</h1>
                 <p>Temukan perangkat elektronik, aksesoris komputer, dan komponen terbaik dengan harga terjangkau untuk menunjang produktivitas Anda.</p>
                 <!-- Tombol shortcut untuk langsung scroll ke bawah -->
                 <a href="#katalog" class="btn btn-hero">Lihat Katalog ↓</a>
@@ -45,6 +47,25 @@
                         name="search" 
                         placeholder="Cari produk atau kategori..." 
                         value="{{ search }}" >
+
+                    <!-- Dropdown Kategori -->
+                    <select name="kategori_filter" class="filter-select">
+                        <option value="">Semua Kategori</option>
+                        <option value="Elektronik" {% if request.args.get('kategori_filter') == 'Elektronik' %}selected{% endif %}>Elektronik</option>
+                        <option value="Aksesoris" {% if request.args.get('kategori_filter') == 'Aksesoris' %}selected{% endif %}>Aksesoris</option>
+                        <option value="Storage" {% if request.args.get('kategori_filter') == 'Storage' %}selected{% endif %}>Storage</option>
+                        <option value="Komponen" {% if request.args.get('kategori_filter') == 'Komponen' %}selected{% endif %}>Komponen</option>
+                        <option value="Lainnya" {% if request.args.get('kategori_filter') == 'Lainnya' %}selected{% endif %}>Lainnya</option>
+                    </select>
+
+                    <!-- Dropdown Harga -->
+                    <select name="harga_filter" class="filter-select">
+                        <option value="">Semua Harga</option>
+                        <option value="0-500000" {% if request.args.get('harga_filter') == '0-500000' %}selected{% endif %}>Di bawah Rp 500.000</option>
+                        <option value="500000-1000000" {% if request.args.get('harga_filter') == '500000-1000000' %}selected{% endif %}>Rp 500.000 - Rp 1.000.000</option>
+                        <option value="1000000-3000000" {% if request.args.get('harga_filter') == '1000000-3000000' %}selected{% endif %}>Rp 1.000.000 - Rp 3.000.000</option>
+                        <option value="3000000-999999999" {% if request.args.get('harga_filter') == '3000000-999999999' %}selected{% endif %}>Di atas Rp 3.000.000</option>
+                    </select>
                      
                     <!--Tombol Search -->
                     <button type="submit" class="btn btn-search-icon">
@@ -72,13 +93,12 @@
                         
                         <div class="product-category">{{ product['kategori'] }}</div>
                         <div class="product-image">
-                            <!-- 1. Periksa apakah Gambar ada di database dan tidak bernilai None -->
-                            <!-- 2. Gunakan 'Gambar' dengan G kapital sesuai struktur tabel database Anda -->
-                            {% if product['Gambar'] and product['Gambar'] != None %}
-                                <img src="{{ url_for('static', filename='Gambar/' + product['Gambar']) }}" alt="{{ product['nama'] }}">
+                            <!-- Periksa apakah gambar ada di database dan tidak bernilai None -->
+                            {% if product['gambar'] and product['gambar'] != None %}
+                                <img src="{{ url_for('static', filename='gambar/' + product['gambar']) }}" alt="{{ product['nama'] }}">
                             {% else %}
-                                <!-- Jika kosong/None, tampilkan gambar default dari folder static/Gambar/ -->
-                                <img src="{{ url_for('static', filename='Gambar/no-image.jpg') }}" alt="Tidak ada gambar">
+                                <!-- Jika kosong/None, tampilkan gambar default dari folder static/gambar/ -->
+                                <img src="{{ url_for('static', filename='gambar/no-image.jpg') }}" alt="Tidak ada gambar">
                             {% endif %}
                         </div>
 
@@ -103,7 +123,7 @@
             </div>
         {% else %}
             <div class="empty-state">
-                <p>😕 Tidak ada produk ditemukan</p>
+                <p>Produk Tidak ditemukan</p>
                 {% if search %}
                     <a href="/" class="btn btn-secondary">Lihat semua produk</a>
                 {% else %}
