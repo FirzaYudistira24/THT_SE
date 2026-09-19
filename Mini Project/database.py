@@ -17,7 +17,7 @@ def init_db():
             harga REAL NOT NULL,
             stok INTEGER NOT NULL,
             kategori TEXT NOT NULL,
-            Gambar TEXT,
+            gambar TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
     ''')
@@ -126,7 +126,7 @@ def init_db():
                 , 3500000, 2, 'Storage', 'no-image.jpg'),
         ]
         cursor.executemany('''
-            INSERT INTO products (nama, deskripsi, harga, stok, kategori, Gambar)
+            INSERT INTO products (nama, deskripsi, harga, stok, kategori, gambar)
             VALUES (?, ?, ?, ?, ?, ?)
         ''', dummy_data)
     
