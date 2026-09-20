@@ -8,14 +8,13 @@
    6.  KEMBALI KE ATAS → index.html
    7.  ALERT           → index.html, form.html, app.py
    8.  SEARCH BAR      → index.html
-   9.  PRODUCT GRID    → index.html
-   10. PRODUCT CARD    → index.html
-   11. EMPTY STATE     → index.html
-   12. DETAIL PRODUK   → detail.html
-   13. FORM            → form.html
-   14. FOOTER          → index.html, detail.html, form.html
-   15. ANIMASI         → index.html (hero)
-   16. RESPONSIVE      → semua halaman
+   9.  PRODUCT CARD    → index.html
+   10. EMPTY STATE     → index.html
+   11. DETAIL PRODUK   → detail.html
+   12. FORM            → form.html
+   13. FOOTER          → index.html, detail.html, form.html
+   14. ANIMASI         → index.html (hero)
+   15. RESPONSIVE      → semua halaman
    ============================================================ */
 
 
@@ -29,13 +28,9 @@
     --gradient-edit: linear-gradient(30deg, #ffa500, #ffe04c);
     --gradient-delete: linear-gradient(30deg, #ff0404, #f74c4c);
     --gradient-card:  rgba(0, 4, 40, 0.7);
+    --gradient-card2:  rgba(10, 17, 114, 0.5);
     --color-success:    #2ecc71;
-    --color-success-dark: #27ae60;
-    --color-warning:    #f39c12;
-    --color-warning-dark: #e67e22;
     --color-danger:     #e74c3c;
-    --color-danger-dark: #c0392b;
-    --color-dark:       #2c3e50;
     --color-grey:       #636e72;
     --color-light-grey: #dfe6e9;
     --color-bg:         #434343;
@@ -49,6 +44,7 @@
     --transition-mid:   0.3s ease;
 }
 
+/*menghapus semua styling default bawaan browser*/
 * {
     margin: 0;
     padding: 0;
@@ -66,10 +62,10 @@ html {
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-image: url('../gambar/Wallpaper.jpg');
-    background-size: cover;        /* gambar memenuhi seluruh area */
-    background-position: center;   /* titik tengah gambar selalu di tengah */
-    background-repeat: no-repeat;  /* tidak mengulang */
-    background-attachment: fixed;  /* gambar diam saat di-scroll */
+    background-size: cover;        
+    background-position: center;   
+    background-repeat: no-repeat;  
+    background-attachment: fixed;  
     background-color: var(--color-bg);
     color: #333;
     min-height: 100vh;
@@ -431,35 +427,40 @@ main {
    8. SEARCH BAR
    Dipakai di: index.html
    ============================================================ */
+/* Wrapper seluruh area pencarian */
 .search-section {
     margin: 20px 0 32px;
 }
 
+/* Baris yang berisi input, dropdown, dan tombol */
 .search-bar {
     display: flex;
     gap: 8px;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* turun ke baris bawah kalau layar sempit */
 }
 
+/* Input teks pencarian */
 .search-bar input {
-    flex: 1;
-    min-width: 150px;
+    flex: 1;                              
+    min-width: 150px;                    
     padding: 10px 16px;
-    border: 3px solid rgba(0, 78, 146, 0.8);
+    border: 3px solid #0081b8;
     border-radius: var(--radius-sm);
     font-size: 1rem;
-    outline: none;
+    outline: none;                        
     transition: border-color var(--transition-fast);
 }
 
+/* Warna border berubah saat input diklik */
 .search-bar input:focus {
     border-color: #3498db;
 }
 
+/* Teks info hasil pencarian */
 .search-info {
     margin-top: 10px;
-    color: var(--color-grey);
+    color: var(--color-light-grey);
     font-size: 0.9rem;
 }
 
@@ -483,7 +484,7 @@ main {
 
 
 /* ============================================================
-   9. PRODUCT GRID
+   9. PRODUCT GRID & CARD
    Dipakai di: index.html
    ============================================================ */
 .product-grid {
@@ -492,11 +493,6 @@ main {
     gap: 24px;
 }
 
-
-/* ============================================================
-   10. PRODUCT CARD
-   Dipakai di: index.html
-   ============================================================ */
 .product-card {
     background: var(--gradient-card);
     border-radius: var(--radius-md);
@@ -601,7 +597,7 @@ main {
 
 
 /* ============================================================
-   11. EMPTY STATE
+   10. EMPTY STATE
    Dipakai di: index.html (ketika tidak ada produk/hasil pencarian)
    ============================================================ */
 .empty-state {
@@ -617,11 +613,11 @@ main {
 
 
 /* ============================================================
-   12. DETAIL PRODUK
+   11. DETAIL PRODUK
    Dipakai di: detail.html
    ============================================================ */
 .detail-card {
-    background: var(--gradient-card);
+    background: var(--gradient-navbar);
     border-radius: var(--radius-md);
     padding: 32px;
     box-shadow: var(--shadow-card);
@@ -662,7 +658,7 @@ main {
     height: 280px;
     overflow: hidden;
     border-radius: 8px;
-    background-color: var(--gradient-card);
+    background-color: var(--gradient-card2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -695,12 +691,14 @@ main {
     flex: 1;
 }
 
+/* Detail info Harga, Stok, Kategori, dan Timestamp */
 .info-item {
-    background: #0a1172;
+    background: var(--gradient-card2);
     padding: 12px 16px;
     border-radius: 8px;
 }
 
+/* Detail Info Judul Harga, Stok, Kategori, dan Timestamp */
 .info-label {
     display: block;
     font-size: 0.75rem;
@@ -710,70 +708,80 @@ main {
     letter-spacing: 0.5px;
 }
 
+/* Detail Info hasil */
 .info-value {
     font-size: 1rem;
     font-weight: 600;
     color: var(--color-light-grey);
 }
 
+/* Detail Info hasil harga hijau */
 .info-value.price {
     color: var(--color-success);
     font-size: 1.2rem;
 }
 
 /* ============================================================
-   13. FORM (TAMBAH & EDIT PRODUK)
+   12. FORM (TAMBAH & EDIT PRODUK)
    Dipakai di: form.html
    ============================================================ */
+
+/* Kartu pembungkus seluruh form */
 .form-card {
     background: var(--gradient-navbar);
     border-radius: var(--radius-md);
     padding: 32px;
     box-shadow: var(--shadow-card);
-    max-width: 600px;
-    margin: 20px auto 0;
+    max-width: 600px;        
+    margin: 20px auto 0;     
 }
 
+/* Judul form — "Tambah Produk Baru" atau "Edit Produk" */
 .form-card h2 {
     font-size: 1.4rem;
     color: var(--color-light-grey);
     margin-bottom: 24px;
 }
 
+/* Wrapper tiap baris input (label + field) */
 .form-group {
     margin-bottom: 20px;
 }
 
+/* Label di atas tiap field */
 .form-group label {
-    display: block;
+    display: block;          
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--color-light-grey);
     margin-bottom: 6px;
 }
 
+/* Field input, textarea, dan select — styling sama semua */
 .form-group input,
 .form-group textarea,
 .form-group select {
-    width: 100%;
+    width: 100%;            
     padding: 10px 14px;
     border: 2px solid var(--color-light-grey);
     border-radius: var(--radius-sm);
     font-size: 0.95rem;
-    outline: none;
+    font-family: inherit;   
+    outline: none;         
     transition: border-color var(--transition-fast);
-    font-family: inherit;
 }
 
+/* Border berubah warna biru saat field diklik */
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
     border-color: #3498db;
 }
 
+/* Ukuran kotak deskripsi form  dan bisa diresize vertikal */
 .form-group textarea {
     height: 100px;
-    resize: vertical;
+    resize: vertical; 
 }
 
 /* Baris dua kolom (harga & stok) */
@@ -792,7 +800,7 @@ main {
 
 
 /* ============================================================
-   14. FOOTER
+   13. FOOTER
    Dipakai di: index.html, detail.html, form.html
    ============================================================ */
 footer {
@@ -806,7 +814,7 @@ footer {
 
 
 /* ============================================================
-   15. ANIMASI
+   14. ANIMASI
    Dipakai di: index.html (hero section)
    ============================================================ */
 
@@ -831,7 +839,7 @@ footer {
 
 
 /* ============================================================
-   16. RESPONSIVE
+   15. RESPONSIVE
    Breakpoint:
    - max 900px  → product grid 2 kolom
    - max 768px  → navbar stack, form 1 kolom, detail 1 kolom
@@ -875,16 +883,14 @@ footer {
     .search-bar input {
         width: 100%;
     }
+
+    .filter-select {
+        width: 100%;
+    }
 }
 
 @media (max-width: 600px) {
     .product-grid {
         grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .filter-select {
-        width: 100%;
     }
 }
