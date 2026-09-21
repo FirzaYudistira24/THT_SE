@@ -5,7 +5,7 @@ Aplikasi ini mendukung operasi CRUD lengkap, fitur pencarian, filter kategori da
 
 ---
 
-## ✨ Fitur
+## Fitur
 
 - Menampilkan daftar produk dalam tampilan grid yang responsif (3 kolom)
 - Fitur pencarian produk berdasarkan nama
@@ -20,7 +20,7 @@ Aplikasi ini mendukung operasi CRUD lengkap, fitur pencarian, filter kategori da
 
 ---
 
-## 🛠️ Teknologi yang Digunakan
+## Teknologi yang Digunakan
 
 | Komponen        | Teknologi                |
 |-----------------|--------------------------|
@@ -33,7 +33,7 @@ Aplikasi ini mendukung operasi CRUD lengkap, fitur pencarian, filter kategori da
 
 ---
 
-## 📁 Struktur Proyek
+## Struktur Proyek
 
 ```
 katalog-produk/
@@ -109,7 +109,7 @@ Database (product.db) akan otomatis dibuat dan diisi data produk awal (database.
 
 ---
 
-## 🔌 REST API Endpoint
+## REST API Endpoint
 
 | Method | Endpoint                       | Deskripsi                    |
 |--------|--------------------------------|------------------------------|
@@ -137,7 +137,7 @@ Database (product.db) akan otomatis dibuat dan diisi data produk awal (database.
 
 ---
 
-## 🗄️ Skema Database
+## Skema Database
 
 **Tabel: products**
 
@@ -154,7 +154,7 @@ Database (product.db) akan otomatis dibuat dan diisi data produk awal (database.
 
 ---
 
-## ✅ Validasi Data
+## Validasi Data
 
 Aplikasi menerapkan validasi di sisi server untuk setiap input:
 - Nama produk tidak boleh kosong
@@ -166,7 +166,7 @@ Aplikasi menerapkan validasi di sisi server untuk setiap input:
 
 ---
 
-## 👤 Tentang
+## Tentang Saya
 
 Dibuat oleh **Moch Firza Yudistira Meizia** sebagai bagian dari Take Home Test magang BrainCorp.
 
