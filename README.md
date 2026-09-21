@@ -1,4 +1,4 @@
-# 💻 PE Cell — Katalog Produk
+# PE Cell — Aplikasi Web Katalog Produk
 
 Aplikasi web katalog produk elektronik menggunakan Python Flask, SQLite, dan HTML/CSS/JavaScript.
 Aplikasi ini mendukung operasi CRUD lengkap, fitur pencarian, filter kategori dan harga, serta upload gambar produk.
