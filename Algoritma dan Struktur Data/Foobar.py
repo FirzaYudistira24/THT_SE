@@ -1,3 +1,6 @@
+import time
+import sys
+
 def foobar():
     # Perulangan tanpa batas agar program terus berjalan
     while True:
@@ -13,7 +16,17 @@ def foobar():
             # Mengubah input teks menjadi angka bulat
             n = int(input_user)
         except ValueError:
-            print("⚠️ Input tidak valid! Masukkan angka bulat atau ketik 'keluar'.")
+            print("Input tidak valid, Masukkan angka bulat atau ketik 'keluar'.")
+
+            # Countdown 5 detik tanpa counter kelihatan
+            for i in range(5, 0, -1): #start, stop, step
+                sys.stdout.write(f'\rMelanjutkan dalam {i} detik...')
+                sys.stdout.flush()
+                time.sleep(1)
+    
+            # Hapus baris countdown setelah selesai
+            sys.stdout.write('\r' + ' ' * 60 + '\r')
+            sys.stdout.flush()
             continue # Kembali ke atas untuk meminta input lagi
 
         hasil = []
@@ -31,6 +44,16 @@ def foobar():
         
         # Cetak hasil angka FooBar
         print(", ".join(hasil))
+
+        # Countdown 5 detik tanpa counter kelihatan
+        for i in range(5, 0, -1): #start, stop, step
+            sys.stdout.write(f'\rMelanjutkan dalam {i} detik...')
+            sys.stdout.flush()
+            time.sleep(1)
+            
+                    # Hapus baris countdown setelah selesai
+        sys.stdout.write('\r' + ' ' * 60 + '\r')
+        sys.stdout.flush()
 
 # Menjalankan fungsi
 foobar()
